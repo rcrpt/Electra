@@ -1,4 +1,4 @@
-name: Compile Project
+name: Build Test
 
 on: [push, pull_request]
 
