@@ -1,7 +1,10 @@
+name: "CodeQL Configuration"
+
 paths:
   include:
-    - src/  # Adjust to your actual source directory
+    - "src"  # Change this to match your actual C++ source folder
   exclude:
-    - tests/
-    - docs/
+    - "tests"
+    - "docs"
+
 build_mode: manual
