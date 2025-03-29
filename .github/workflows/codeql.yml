@@ -1,0 +1,45 @@
+name: "CodeQL Analysis"
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  schedule:
+    - cron: '0 12 * * 1'  # Runs every Monday at 12 PM UTC
+
+permissions:
+  contents: read
+  security-events: write  # Required for CodeQL to report security issues
+
+jobs:
+  analyze:
+    name: Analyze Code with CodeQL
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install Compiler Dependencies
+        run: sudo apt-get update && sudo apt-get install -y build-essential
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: cpp
+          config-file: .github/codeql-config.yml
+
+      - name: Debug Build Output
+        run: find . -name "*.o" -o -name "*.c" -o -name "*.cpp" -o -name "*.h"
+
+      - name: Debug Makefile Compilation
+        run: make clean && make VERBOSE=1
+
+      - name: Build with CodeQL Compilation Tracking
+        run: |
+          export CODEQL_EXTRACTOR_C_CPP_TRACING=1
+          codeql database trace-command my-database --language=cpp -- make
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
