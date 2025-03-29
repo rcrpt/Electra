@@ -13,7 +13,7 @@
 Report Security Vulnerabilities in Issues with the following format:
 
 ```
-#SECURITY VULNERABILITY FOUND!
+# SECURITY VULNERABILITY FOUND!
 
 What Version?:
  (Version)
