@@ -1,0 +1,7 @@
+paths:
+  include:
+    - src/  # Adjust to your actual source directory
+  exclude:
+    - tests/
+    - docs/
+build_mode: manual
