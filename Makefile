@@ -1,19 +1,27 @@
 CC = gcc
-CFLAGS = -Wall
+CFLAGS = -Wall -Wextra -std=c99
+SRC_DIR = src
+INC_DIR = include
+BIN_DIR = bin
 
-all: simple_lang
+# Ensure bin directory exists
+$(BIN_DIR):
+	mkdir -p $(BIN_DIR)
 
-simple_lang: main.o lexer.o parser.o
-	$(CC) $(CFLAGS) -o simple_lang main.o lexer.o parser.o
+all: $(BIN_DIR)/simple_lang
 
-main.o: main.c parser.h lexer.h
-	$(CC) $(CFLAGS) -c main.c
+$(BIN_DIR)/simple_lang: $(BIN_DIR)/main.o $(BIN_DIR)/lexer.o $(BIN_DIR)/parser.o | $(BIN_DIR)
+	$(CC) $(CFLAGS) -o $(BIN_DIR)/simple_lang $(BIN_DIR)/main.o $(BIN_DIR)/lexer.o $(BIN_DIR)/parser.o
 
-lexer.o: lexer.c lexer.h
-	$(CC) $(CFLAGS) -c lexer.c
+$(BIN_DIR)/main.o: $(SRC_DIR)/Electra.c $(INC_DIR)/parser.h $(INC_DIR)/lexer.h | $(BIN_DIR)
+	$(CC) $(CFLAGS) -c $(SRC_DIR)/Electra.c -o $(BIN_DIR)/main.o
 
-parser.o: parser.c parser.h lexer.h
-	$(CC) $(CFLAGS) -c parser.c
+$(BIN_DIR)/lexer.o: $(SRC_DIR)/lexer.c $(INC_DIR)/lexer.h | $(BIN_DIR)
+	$(CC) $(CFLAGS) -c $(SRC_DIR)/lexer.c -o $(BIN_DIR)/lexer.o
+
+$(BIN_DIR)/parser.o: $(SRC_DIR)/parser.c $(INC_DIR)/parser.h $(INC_DIR)/lexer.h | $(BIN_DIR)
+	$(CC) $(CFLAGS) -c $(SRC_DIR)/parser.c -o $(BIN_DIR)/parser.o
 
 clean:
-	rm -f *.o simple_lang
+	rm -rf $(BIN_DIR)
+
