@@ -9,6 +9,18 @@ typedef struct {
     int value;
 } Variable;
 
+// Function for parsing the input code
+void parse(const char *input) {
+    Token token;
+    while ((token = get_next_token()).type != TOKEN_EOF) {
+        if (token.type == TOKEN_PRINT) {
+            printf("Parsed print statement\n");
+            // Handle the print statement execution here
+        }
+        // Handle other tokens...
+    }
+}
+
 Variable vars[100];
 int var_count = 0;
 
