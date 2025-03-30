@@ -1,9 +1,9 @@
-#include "include/interpreter.h"
-#include "include/parser.h"
+// interpreter.c
+#include "interpreter.h"
+#include "parser.h"
 #include <stdio.h>
 
-// Function for executing parsed code
-void execute(const char *code) {
+void interpret(const char *code) {  // Renamed from execute to interpret
     // Initialize the lexer with the input code
     init_lexer(code);
 

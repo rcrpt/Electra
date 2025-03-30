@@ -1,6 +1,8 @@
 #ifndef INTERPRETER_H
 #define INTERPRETER_H
 
-void execute(const char *code);
+#include "parser.h"
+
+void interpret(const char *code);  // Updated function name
 
 #endif

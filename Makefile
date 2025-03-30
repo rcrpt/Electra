@@ -8,17 +8,17 @@ all: simple_lang
 simple_lang: main.o lexer.o parser.o interpreter.o
 	$(CC) $(CFLAGS) -o simple_lang main.o lexer.o parser.o interpreter.o
 
-main.o: $(SRC_DIR)/Electra.c $(INC_DIR)/parser.h $(INC_DIR)/lexer.h $(INC_DIR)/interpreter.h
+main.o: src/Electra.c src/include/parser.h src/include/lex.h include/interpreter.h
 	$(CC) $(CFLAGS) -c $(SRC_DIR)/Electra.c -o main.o
 
-lexer.o: $(SRC_DIR)/lexer.c include/lexer.h
+lexer.o: src/lexer.c src/include/lex.h
 	$(CC) $(CFLAGS) -c $(SRC_DIR)/lexer.c -o lexer.o
 
-parser.o: $(SRC_DIR)/parser.c $(INC_DIR)/parser.h $(INC_DIR)/lexer.h
-	$(CC) $(CFLAGS) -c $(SRC_DIR)/parser.c -o parser.o
+parser.o: src/parser.c src/include/par.h src/include/lex.h
+	$(CC) $(CFLAGS) -c src/parser.c -o parser.o
 
-interpreter.o: $(SRC_DIR)/interpreter.c $(INC_DIR)/interpreter.h $(INC_DIR)/parser.h $(INC_DIR)/lexer.h
-	$(CC) $(CFLAGS) -c $(SRC_DIR)/interpreter.c -o interpreter.o
+interpreter.o: src/interpreter/interpreter.c include/interpreter.h src/include/par.h src/include/lex.h
+	$(CC) $(CFLAGS) -c src/interpreter/interpreter.c -o interpreter.o
 
 clean:
 	rm -f simple_lang main.o lexer.o parser.o interpreter.o
