@@ -2,5 +2,5 @@
 # Electra
 The one and only, Electra Programming Language.
 
-Version: a1.0.1 
+Version: a1.1.0
 (Warning! This project is in the alpha stage and you may encounter bugs or crashes while running the program.)
