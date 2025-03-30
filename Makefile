@@ -4,6 +4,10 @@ SRC_DIR = src
 INC_DIR = include
 BIN_DIR = bin
 
+# Ensure bin directory exists
+$(BIN_DIR):
+	mkdir -p $(BIN_DIR)
+
 all: $(BIN_DIR)/simple_lang
 
 $(BIN_DIR)/simple_lang: $(BIN_DIR)/main.o $(BIN_DIR)/lexer.o $(BIN_DIR)/parser.o $(BIN_DIR)/interpreter.o | $(BIN_DIR)
@@ -22,4 +26,4 @@ $(BIN_DIR)/interpreter.o: $(SRC_DIR)/interpreter.c $(INC_DIR)/interpreter.h $(IN
 	$(CC) $(CFLAGS) -c $(SRC_DIR)/interpreter.c -o $(BIN_DIR)/interpreter.o
 
 clean:
-	@if [ -d $(BIN_DIR) ]; then rm -rf $(BIN_DIR); fi
+	rm -rf $(BIN_DIR)
