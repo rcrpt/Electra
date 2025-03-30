@@ -4,7 +4,7 @@ SRC_DIR = src
 INC_DIR = include
 
 ifeq ($(OS),Windows_NT)
-    CFLAGS += -nostartfiles  # Fixes undefined reference to __main (Windows)
+    CFLAGS += -Wl,--entry=main  # Fixes undefined reference to __main (Windows)
 else
     LDFLAGS += -no-pie       # Fixes relocation error in Linux
 endif
