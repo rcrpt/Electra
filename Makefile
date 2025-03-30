@@ -3,10 +3,16 @@ CFLAGS = -Wall -Wextra -std=c99 -Iinclude
 SRC_DIR = src
 INC_DIR = include
 
+ifeq ($(OS),Windows_NT)
+    CFLAGS += -nostartfiles  # Fixes undefined reference to __main (Windows)
+else
+    LDFLAGS += -no-pie       # Fixes relocation error in Linux
+endif
+
 all: simple_lang
 
 simple_lang: main.o lexer.o parser.o interpreter.o
-	$(CC) $(CFLAGS) -o simple_lang main.o lexer.o parser.o interpreter.o
+	$(CC) $(CFLAGS) $(LDFLAGS) -o simple_lang main.o lexer.o parser.o interpreter.o
 
 main.o: src/Electra.c src/include/parser.h src/include/lex.h include/interpreter.h
 	$(CC) $(CFLAGS) -c $(SRC_DIR)/Electra.c -o main.o
