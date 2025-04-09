@@ -1,30 +1,44 @@
+CC=gcc
+CFLAGS=-.
+
+### Solution
+
+To resolve this issue, the `Makefile` needs to be updated to correctly handle the entryWall -Wextra -std=c99 -Iinclude
+LDFLAGS=-no-pie
+
+# point for different operating systems. Since the ` List all source files
+SRCS=main.c lexer.c parser.cMakefile` already has a conditional for Windows, we interpreter.c
+# Generate object files
+ need to ensure it handles Linux properly.
+
+#### UpdatedOBJS=$(SRCS `Makefile`
+
+Update the `Makefile` to include the entry:.c=.o)
+# Output executable
+TARGET=simple_lang
+
+all point for Linux:
+
+```makefile
 CC = gcc
-CFLAGS = -Wall -Wextra -std=c99 -Iinclude
+CFLAGS = -: $(TARGET)
+
+$(TARGET): $(OBJS)
+    $(CC) $(CFLAGSWall -Wextra -std=c99 -Iinclude
 SRC_DIR = src
 INC_DIR = include
 
 ifeq ($(OS),Windows_NT)
-    CFLAGS += -Wl,--entry=main  # Fixes undefined reference to __main (Windows)
+    CFLAGS += -W) $(LDFLAGS) -o $@ $^
+
+%.o: %.c
+    $(CC) $(CFLAGSl,--entry=main  # Fixes undefined reference to __main (Windows)
 else
-    LDFLAGS += -no-pie       # Fixes relocation error in Linux
-endif
-
-all: simple_lang
-
-simple_lang: main.o lexer.o parser.o interpreter.o
-	$(CC) $(CFLAGS) $(LDFLAGS) -o simple_lang main.o lexer.o parser.o interpreter.o
-
-main.o: src/Electra.c src/include/parser.h src/include/lex.h include/interpreter.h
-	$(CC) $(CFLAGS) -c $(SRC_DIR)/Electra.c -o main.o
-
-lexer.o: src/lexer.c src/include/lex.h
-	$(CC) $(CFLAGS) -c $(SRC_DIR)/lexer.c -o lexer.o
-
-parser.o: src/parser.c src/include/par.h src/include/lex.h
-	$(CC) $(CFLAGS) -c src/parser.c -o parser.o
-
-interpreter.o: src/interpreter/interpreter.c include/interpreter.h src/include/par.h src/include/lex.h
-	$(CC) $(CFLAGS) -c src/interpreter/interpreter.c -o interpreter.o
+    LDFLAGS += -no-pie  # Fixes) -c $< -o $@
 
 clean:
-	rm -f simple_lang main.o lexer.o parser.o interpreter.o
+    rm -f $(OBJS) $(TARGET)
+
+ relocation error in Linux
+    LDFLAGS += -e main  # Ensure the entry point is defined for Linux
+endif.PHONY: all clean
