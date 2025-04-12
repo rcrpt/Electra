@@ -1,44 +1,41 @@
-CC=gcc
-CFLAGS=-.
-
-### Solution
-
-To resolve this issue, the `Makefile` needs to be updated to correctly handle the entryWall -Wextra -std=c99 -Iinclude
-LDFLAGS=-no-pie
-
-# point for different operating systems. Since the ` List all source files
-SRCS=main.c lexer.c parser.cMakefile` already has a conditional for Windows, we interpreter.c
-# Generate object files
- need to ensure it handles Linux properly.
-
-#### UpdatedOBJS=$(SRCS `Makefile`
-
-Update the `Makefile` to include the entry:.c=.o)
-# Output executable
-TARGET=simple_lang
-
-all point for Linux:
-
-```makefile
+# Compiler and flags
 CC = gcc
-CFLAGS = -: $(TARGET)
+CFLAGS = -Wall -Wextra -std=c99 -Iinclude
+LDFLAGS =
 
-$(TARGET): $(OBJS)
-    $(CC) $(CFLAGSWall -Wextra -std=c99 -Iinclude
+# Directories
 SRC_DIR = src
 INC_DIR = include
 
+# Source files
+SRCS = main.c lexer.c parser.c interpreter.c
+
+# Object files
+OBJS = $(SRCS:.c=.o)
+
+# Target executable
+TARGET = simple_lang
+
+# Detect OS and adjust flags accordingly
 ifeq ($(OS),Windows_NT)
-    CFLAGS += -W) $(LDFLAGS) -o $@ $^
-
-%.o: %.c
-    $(CC) $(CFLAGSl,--entry=main  # Fixes undefined reference to __main (Windows)
+    CFLAGS += -Wl,--entry=main
 else
-    LDFLAGS += -no-pie  # Fixes) -c $< -o $@
+    LDFLAGS += -no-pie -e main
+endif
 
+# Default build target
+all: $(TARGET)
+
+# Link the object files to create the executable
+$(TARGET): $(OBJS)
+	$(CC) $(OBJS) $(LDFLAGS) -o $@
+
+# Compile .c files to .o
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# Clean up
 clean:
-    rm -f $(OBJS) $(TARGET)
+	rm -f $(OBJS) $(TARGET)
 
- relocation error in Linux
-    LDFLAGS += -e main  # Ensure the entry point is defined for Linux
-endif.PHONY: all clean
+.PHONY: all clean
