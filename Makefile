@@ -3,10 +3,11 @@ CFLAGS = -Wall -Wextra -std=c99 -Iinclude
 SRC_DIR = src
 INC_DIR = include
 
+# Remove the "-e main" flag for non-Windows platforms
 ifeq ($(OS),Windows_NT)
-    CFLAGS += -Wl,--entry=main  # Fixes undefined reference to __main (Windows)
+    CFLAGS += -Wl,--entry=main
 else
-    LDFLAGS += -no-pie       # Fixes relocation error in Linux
+    LDFLAGS += -no-pie
 endif
 
 all: simple_lang
