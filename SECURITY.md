@@ -12,6 +12,7 @@
 | a1.1.2  | :x:                |
 | a1.1.3  | ✅                 |
 | a1.1.4  | ✅                 |
+| a1.1.5  | ✅                 |
 
 
 ## Reporting a Vulnerability
