@@ -10,6 +10,13 @@ INC_DIR = include
 # Source files
 SRCS = main.c lexer.c parser.c interpreter.c
 
+# Remove the "-e main" flag for non-Windows platforms
+ifeq ($(OS),Windows_NT)
+    CFLAGS += -Wl,--entry=main
+else
+    LDFLAGS += -no-pie
+endif
+
 # Object files
 OBJS = $(SRCS:.c=.o)
 
