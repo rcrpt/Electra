@@ -1,41 +1,20 @@
-# Compiler and flags
 CC = gcc
-CFLAGS = -Wall -Wextra -std=c99 -I$(INC_DIR)
-LDFLAGS =
-
-# Directories
+CFLAGS = -Wall -Wextra -std=c99 -Iinclude
 SRC_DIR = src
 INC_DIR = include
 
-# OS-specific linker flags
 ifeq ($(OS),Windows_NT)
-    LDFLAGS += -Wl,--entry=main -lmsvcrt
+    # Windows
+    CFLAGS += -Wl,--entry=main
 else
+    # Linux
     LDFLAGS += -no-pie
 endif
 
-# Output binary
-TARGET = simple_lang
+all: simple_lang
 
-# Source files
-SRCS = \
-	$(SRC_DIR)/Electra.c \
-	$(SRC_DIR)/lexer.c \
-	$(SRC_DIR)/parser.c \
-	$(SRC_DIR)/interpreter/interpreter.c
-
-# Object files
-OBJS = \
-	main.o \
-	lexer.o \
-	parser.o \
-	interpreter.o
-
-# Default target
-all: $(TARGET)
-
-$(TARGET): $(OBJS)
-	$(CC) $(OBJS) $(LDFLAGS) -o $(TARGET)
+simple_lang: main.o lexer.o parser.o interpreter.o
+	$(CC) $(LDFLAGS) -o simple_lang main.o lexer.o parser.o interpreter.o
 
 main.o: $(SRC_DIR)/Electra.c $(SRC_DIR)/include/parser.h $(SRC_DIR)/include/lex.h $(INC_DIR)/interpreter.h
 	$(CC) $(CFLAGS) -c $(SRC_DIR)/Electra.c -o main.o
@@ -50,6 +29,6 @@ interpreter.o: $(SRC_DIR)/interpreter/interpreter.c $(INC_DIR)/interpreter.h $(S
 	$(CC) $(CFLAGS) -c $(SRC_DIR)/interpreter/interpreter.c -o interpreter.o
 
 clean:
-	rm -f $(TARGET) $(OBJS)
+	rm -f simple_lang main.o lexer.o parser.o interpreter.o
 
 .PHONY: all clean
