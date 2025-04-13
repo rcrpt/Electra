@@ -2,6 +2,6 @@
 # Electra
 The one and only, Electra Programming Language.
 
-Version: a1.1.5
+Version: a1.1.5.1
 # Changelog
-   --Fixed Bug in compiling
+   --Fixed Parser because of variable input issues
