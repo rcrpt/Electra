@@ -3,7 +3,7 @@
 
 int main() {
     const char code[] = 
-        "x = 1"
+        "x = 1000000"
         "print x";
 
     execute(code);
