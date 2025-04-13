@@ -65,7 +65,8 @@ void execute(const char *code) {
         } else if (token.type == TOKEN_PRINT) {
             Token next_token = get_next_token();
             if (next_token.type == TOKEN_IDENTIFIER) {
-                printf("%s = %d\n", next_token.value, get_variable_value(next_token.value));
+                // Modified to print only the value
+                printf("%d\n", get_variable_value(next_token.value));
             }
         }
     }

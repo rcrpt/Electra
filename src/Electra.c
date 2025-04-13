@@ -3,8 +3,8 @@
 
 int main() {
     const char code[] = 
-        "print x\n"
-        "print y\n";
+        "x = 1"
+        "print x";
 
     execute(code);
     return 0;
